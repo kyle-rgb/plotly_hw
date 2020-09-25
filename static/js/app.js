@@ -52,6 +52,35 @@ d3.json("./data/samples.json").then(function (data) {
         var list = d3.select("#demographics")
         list._groups[0][0].innerHTML = (demoString)
 
+        console.log(bacter_id[index])
+        console.log(sample_val[index])
+
+        colorArr =[]
+        for (id of bacter_id[index]){
+            let idNum = id;
+            idNum /= 10;
+            if (idNum > 255){
+                idNum = 255
+            }
+            colorArr.push(`rgb(120, ${idNum}, 120)`)
+        }
+
+        bubbledata = [{
+            x: bacter_id[index],
+            y: sample_val[index],
+            mode: "markers",
+            marker: {
+                size: sample_val[index],
+                color: colorArr
+            },
+            type: "scatter"
+
+        }]
+
+        bubLabel = {xaxis: {title: "OTU_id"}}
+
+        Plotly.newPlot("bubble", bubbledata, bubLabel)
+
     }
     
     optionChanged("940");
