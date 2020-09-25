@@ -1,6 +1,7 @@
 //plotly app
 d3.json("./data/samples.json").then(function (data) {
     console.log(data)
+    var particpants_demographics = Object.values(data.metadata)
     var participants_id = Object.values(data.names)
     var participants_samples = Object.values(data.samples)
     const placeholderID = "940";
@@ -12,6 +13,7 @@ d3.json("./data/samples.json").then(function (data) {
     // console.log(duf)
     //console.log(participants_id)
     var selection = d3.select("#selDataset")
+    var demographics = d3.select("#sample-metadata")
     console.log(participants_id.indexOf("940"))
 
     for (id of participants_id){
@@ -20,7 +22,7 @@ d3.json("./data/samples.json").then(function (data) {
 
 
     function optionChanged(id){
-        console.log(id)
+        //console.log(id)
         id = id.toString()
         var index = participants_id.indexOf(id)
         var trace1 = {
@@ -43,6 +45,13 @@ d3.json("./data/samples.json").then(function (data) {
              yaxis: {type: "string"}
         }
         Plotly.newPlot("bar", chartData, layout)
+        var demoString = ""
+        for (pair of Object.entries(particpants_demographics[index])){
+            demoString += `<li><b>${pair[0]}</b>: ${pair[1]}</li><br>`
+        }
+        var list = d3.select("#demographics")
+        list._groups[0][0].innerHTML = (demoString)
+
     }
     
     optionChanged("940");
