@@ -20,7 +20,7 @@ d3.json("./data/samples.json").then(function (data) {
 
     function optionChanged(id){
         
-        const part_id = id
+        var part_id = id
         id = id.toString()
         var index = participants_id.indexOf(id)
         var trace1 = {
@@ -112,7 +112,7 @@ d3.json("./data/samples.json").then(function (data) {
         glayout = {
             height: 600,
             width: 600,
-            title: "<b>Belly Button Washes per Week</b>"
+            title: `<b>Belly Button Washes per Week</b>`
         }
         var washes = particpants_demographics[index].wfreq
         if (washes > 7){
