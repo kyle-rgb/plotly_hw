@@ -23,6 +23,7 @@ d3.json("./data/samples.json").then(function (data) {
 
     function optionChanged(id){
         //console.log(id)
+        const part_id = id
         id = id.toString()
         var index = participants_id.indexOf(id)
         var trace1 = {
@@ -62,12 +63,13 @@ d3.json("./data/samples.json").then(function (data) {
             if (idNum > 255){
                 idNum = 255
             }
-            colorArr.push(`rgb(120, ${idNum}, 120)`)
+            colorArr.push(`rgb(50, ${idNum}, 120)`)
         }
 
         bubbledata = [{
             x: bacter_id[index],
             y: sample_val[index],
+            text: bacter_labels[index],
             mode: "markers",
             marker: {
                 size: sample_val[index],
@@ -76,8 +78,10 @@ d3.json("./data/samples.json").then(function (data) {
             type: "scatter"
 
         }]
-
-        bubLabel = {xaxis: {title: "OTU_id"}}
+        console.log("-----")
+        bubLabel = {
+            title: `Bacteria Intensity of Subject #${part_id}`,
+            xaxis: {title: "OTU_id"}}
 
         Plotly.newPlot("bubble", bubbledata, bubLabel)
 
